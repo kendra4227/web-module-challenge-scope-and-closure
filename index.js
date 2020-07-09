@@ -79,14 +79,18 @@ finalScore(inning, 9) might return:
 
 */
 
-function finalScore(func, innings) {
-
-
+function finalScore(callback, innings) {
+    let home = 0;
+    let away = 0;
+    for (let i = 0; i < innings; i++) {
+        home = callback() + home;
+        away = callback() + away;
+    }
 
 
 
 }
-
+console.log(finalScore(inning(0, 2), 9));
 /* Task 4: 
 
 Create a function called `scoreboard` that accepts the following parameters: 
@@ -106,5 +110,6 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam */
 
 
-function scoreboard( /* CODE HERE */ ) {
-    /* CODE HERE */
+function scoreboard() {
+
+}
