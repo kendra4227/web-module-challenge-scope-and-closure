@@ -32,7 +32,7 @@ function processFirstItem(stringList, callback) {
  * 2. Which of the two uses a closure? How can you tell?
  * closure1 has a function counter() within the counterMaker()function. The count variable is accessed within the function.
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ * in counter1 the variables are private so it is protected. in counter2 you can access it and modify
  */
 
 // counter1 code
@@ -57,9 +57,9 @@ function counter2() {
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(min, max) {
+function inning() {
 
-    return Math.ceil(Math.random() * (max - min) + min);
+    return Math.floor(Math.random() * 3);
 
 
 }
@@ -82,17 +82,17 @@ finalScore(inning, 9) might return:
 function finalScore(callback, innings) {
     let home = 0;
     let away = 0;
-    for (let i = 0; i < innings; i++) {
+    for (let i = 0; i <= innings; i++) {
         home = callback() + home;
         away = callback() + away;
+
     }
 
-
+    return `Home : ${home} Away : ${away}`;
 
 }
-console.log(finalScore(inning(0, 2), 9));
+console.log(finalScore(inning, 9));
 /* Task 4: 
-
 Create a function called `scoreboard` that accepts the following parameters: 
 (1) Callback function `getInningScore`
 (2) Callback function `inning`
@@ -109,7 +109,30 @@ and returns the score at each pont in the game, like so:
 9th inning: awayTeam - homeTeam
 Final Score: awayTeam - homeTeam */
 
+function getInningScore(inningCB) {
+    let home = 0;
+    let away = 0;
+    return function() {
+        home += inningCB();
+        away += inningCB();
+        return { Home: home, Away: away };
 
-function scoreboard() {
+    }
+}
+
+function scoreboard(getInningScoreCB, inningCB, innings) {
+    const scoreByInning = [];
+    const temp = getInningScoreCB(inningCB);
+
+    for (let i = 0; i < innings; i++) {
+        scoreByInning.push(temp())
+
+    }
+    for (let i = 0; i < innings; i++) {
+        if (i === 10)
+            console.log("---This game requires additional innings---");
+        console.log(`Inning ${i+1}: ${ScoreByInning[i].home}- ${ScoreByInning[i].away}`);
+    }
 
 }
+scoreboard();
